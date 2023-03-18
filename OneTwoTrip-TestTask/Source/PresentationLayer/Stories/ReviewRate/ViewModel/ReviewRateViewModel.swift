@@ -1,25 +1,26 @@
 //
-//  MainViewModel.swift
+//  ReviewRateViewModel.swift
 //  OneTwoTrip-TestTask
 //
 //  Created by Georg Lyurko on 18.03.2023.
 //
 
 import Foundation
+import RxSwift
 import ReactorKit
 
-final class MainViewModel: Reactor {
+final class ReviewRateViewModel: Reactor {
 	
 	// MARK: - Properties
 	
 	var initialState: State
-
+	
 	// MARK: - Private Properties
 	
-	private let coordinator: MainCoordinator?
+	private let coordinator: ReviewRateCoordinator
 	
 	// MARK: - Reactor
-
+	
 	enum Action {}
 	struct State {}
 	enum Mutation {}
@@ -29,7 +30,7 @@ final class MainViewModel: Reactor {
 	
 	// MARK: - Lifecycle
 	
-	init(coordinator: MainCoordinator) {
+	init(coordinator: ReviewRateCoordinator) {
 		self.coordinator = coordinator
 		self.initialState = State()
 	}

@@ -17,7 +17,12 @@ final class MainViewController: UIViewController, View {
 	
 	// MARK: - Public Methods
 	
-	func bind(reactor: MainViewModel) {}
+	func bind(reactor: MainViewModel) {
+		contentView.reviewButton.rx.tap
+			.map({ Reactor.Action.writeReview })
+			.bind(to: reactor.action)
+			.disposed(by: disposeBag)
+	}
 	
 	// MARK: - Lifecycle
 	

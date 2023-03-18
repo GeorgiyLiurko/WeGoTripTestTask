@@ -12,7 +12,7 @@ final class MainView: UIView {
 	
 	// MARK: - Private Properties
 	
-	private let reviewButton: UIButton = {
+	private(set) var reviewButton: UIButton = {
 		let button = UIButton()
 		button.setTitle(
 			R.string.localizable.writeReview(),
@@ -27,7 +27,7 @@ final class MainView: UIView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		setupView()
+		configureUI()
 	}
 	
 	required init?(coder: NSCoder) {
@@ -36,6 +36,20 @@ final class MainView: UIView {
 	
 	override func layoutSubviews() {
 		super.layoutSubviews()
+		configureLayout()
+	}
+}
+
+// MARK: - BaseView
+
+extension MainView: BaseView {
+	
+	func configureUI() {
+		backgroundColor = .white
+		addSubview(reviewButton)
+	}
+	
+	func configureLayout() {
 		reviewButton.layer.cornerRadius = 12
 		
 		reviewButton.pin
@@ -43,12 +57,5 @@ final class MainView: UIView {
 			.hCenter()
 			.width(40%)
 			.height(50)
-	}
-	
-	// MARK: - Private Methods
-	
-	private func setupView() {
-		backgroundColor = .white
-		addSubview(reviewButton)
 	}
 }

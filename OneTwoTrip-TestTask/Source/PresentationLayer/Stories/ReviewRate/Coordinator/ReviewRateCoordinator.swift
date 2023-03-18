@@ -1,5 +1,5 @@
 //
-//  MainCoordinator.swift
+//  ReviewRateCoordinator.swift
 //  OneTwoTrip-TestTask
 //
 //  Created by Georg Lyurko on 18.03.2023.
@@ -9,7 +9,7 @@ import ReactiveCoordinator
 import RxSwift
 import Swinject
 
-final class MainCoordinator: ReactiveCoordinator<Void> {
+final class ReviewRateCoordinator: ReactiveCoordinator<Void> {
 	
 	// MARK: - Private Properties
 	
@@ -29,11 +29,11 @@ final class MainCoordinator: ReactiveCoordinator<Void> {
 	// MARK: - Public Method
 	
 	override func start() -> Observable<Void> {
-		assembler.apply(assembly: MainAssembly(coordinator: self))
 		guard let controller = getViewController() else {
 			return .empty()
 		}
-		navigationController.pushViewController(
+		controller.modalPresentationStyle = .overCurrentContext
+		navigationController.topViewController?.present(
 			controller,
 			animated: false
 		)
@@ -43,7 +43,7 @@ final class MainCoordinator: ReactiveCoordinator<Void> {
 	// MARK: - Private Methods
 	
 	private func getViewController() -> UIViewController? {
-		assembler.apply(assembly: MainAssembly(coordinator: self))
-		return assembler.resolver.resolve(MainViewController.self)
+		assembler.apply(assembly: ReviewRateAssembly(coordinator: self))
+		return assembler.resolver.resolve(ReviewRateViewController.self)
 	}
 }

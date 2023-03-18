@@ -23,12 +23,13 @@ struct MainAssembly: Assembly {
 	// MARK: - Public Methods
 	
 	func assemble(container: Container) {
-		container.register(MainViewController.self) { _ in
-			return MainViewController()
-		}
-		
 		container.register(MainViewModel.self) { _ in
 			return MainViewModel(coordinator: self.coordinator)
+		}
+		container.register(MainViewController.self) { resolver in
+			let controller = MainViewController()
+			controller.reactor = resolver.resolve(MainViewModel.self)
+			return controller
 		}
 	}
 }

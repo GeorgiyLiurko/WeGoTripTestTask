@@ -7,3 +7,10 @@
 */
 
 "writeReview" = "Написать отзыв";
+"reviewRateTitle" = "Офигенно, вы дошли до конца!\nРасскажите, как вам?";
+"overallRateTitle" = "Как вам тур в целом?";
+"guideRateTitle" = "Понравился гид?";
+"informationRateTitle" = "Как вам подача информации?";
+"navigationRateTitle" = "Удобная навигации между шагами?";
+"next" = "Далее";
+"declineAnswer" = "Не хочу отвечать";

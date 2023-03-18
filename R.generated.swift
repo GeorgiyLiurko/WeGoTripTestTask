@@ -60,16 +60,65 @@ struct _R {
       let source: RswiftResources.StringResource.Source
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 1 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 8 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
-      /// en translation: Write review
+      /// ru translation: Не хочу отвечать
+      ///
+      /// Key: declineAnswer
+      ///
+      /// Locales: ru
+      var declineAnswer: RswiftResources.StringResource { .init(key: "declineAnswer", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// ru translation: Понравился гид?
+      ///
+      /// Key: guideRateTitle
+      ///
+      /// Locales: ru
+      var guideRateTitle: RswiftResources.StringResource { .init(key: "guideRateTitle", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// ru translation: Как вам подача информации?
+      ///
+      /// Key: informationRateTitle
+      ///
+      /// Locales: ru
+      var informationRateTitle: RswiftResources.StringResource { .init(key: "informationRateTitle", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// ru translation: Удобная навигации между шагами?
+      ///
+      /// Key: navigationRateTitle
+      ///
+      /// Locales: ru
+      var navigationRateTitle: RswiftResources.StringResource { .init(key: "navigationRateTitle", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// ru translation: Далее
+      ///
+      /// Key: next
+      ///
+      /// Locales: ru
+      var next: RswiftResources.StringResource { .init(key: "next", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// ru translation: Как вам тур в целом?
+      ///
+      /// Key: overallRateTitle
+      ///
+      /// Locales: ru
+      var overallRateTitle: RswiftResources.StringResource { .init(key: "overallRateTitle", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// ru translation: Офигенно, вы дошли до конца! Расскажите, как вам?
+      ///
+      /// Key: reviewRateTitle
+      ///
+      /// Locales: ru
+      var reviewRateTitle: RswiftResources.StringResource { .init(key: "reviewRateTitle", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// ru translation: Написать отзыв
       ///
       /// Key: writeReview
       ///
-      /// Locales: en, ru
-      var writeReview: RswiftResources.StringResource { .init(key: "writeReview", tableName: "Localizable", source: source, developmentValue: "Write review", comment: nil) }
+      /// Locales: ru
+      var writeReview: RswiftResources.StringResource { .init(key: "writeReview", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
     }
   }
 
