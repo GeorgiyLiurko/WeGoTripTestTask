@@ -14,6 +14,7 @@ struct _R {
   let bundle: Foundation.Bundle
   var string: string { .init(bundle: bundle, preferredLanguages: nil, locale: nil) }
   var color: color { .init(bundle: bundle) }
+  var image: image { .init(bundle: bundle) }
   var storyboard: storyboard { .init(bundle: bundle) }
 
   func string(bundle: Foundation.Bundle) -> string {
@@ -26,6 +27,9 @@ struct _R {
     .init(bundle: bundle, preferredLanguages: preferredLanguages, locale: locale)
   }
   func color(bundle: Foundation.Bundle) -> color {
+    .init(bundle: bundle)
+  }
+  func image(bundle: Foundation.Bundle) -> image {
     .init(bundle: bundle)
   }
   func storyboard(bundle: Foundation.Bundle) -> storyboard {
@@ -126,8 +130,19 @@ struct _R {
   struct color {
     let bundle: Foundation.Bundle
 
-    /// Color `AccentColor`.
-    var accentColor: RswiftResources.ColorResource { .init(name: "AccentColor", path: [], bundle: bundle) }
+    /// Color `customGray`.
+    var customGray: RswiftResources.ColorResource { .init(name: "customGray", path: [], bundle: bundle) }
+  }
+
+  /// This `_R.image` struct is generated, and contains static references to 2 images.
+  struct image {
+    let bundle: Foundation.Bundle
+
+    /// Image `defaultThumb`.
+    var defaultThumb: RswiftResources.ImageResource { .init(name: "defaultThumb", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `rateSliderBackground`.
+    var rateSliderBackground: RswiftResources.ImageResource { .init(name: "rateSliderBackground", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
   }
 
   /// This `_R.storyboard` struct is generated, and contains static references to 1 storyboards.

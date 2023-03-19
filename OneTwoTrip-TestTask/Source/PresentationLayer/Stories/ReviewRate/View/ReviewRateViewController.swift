@@ -17,7 +17,9 @@ final class ReviewRateViewController: UIViewController, View {
 	
 	// MARK: - Private Properties
 	
-	private let contentView = ReviewRateView()
+	private let contentView: ReviewRateView = {
+		return ReviewRateView(settings: BaseReviewView.ReviewSettings(openState: .closed))
+	}()
 	
 	// MARK: - Lifecycle
 	

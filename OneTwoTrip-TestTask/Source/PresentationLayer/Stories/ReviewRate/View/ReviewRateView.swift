@@ -29,7 +29,7 @@ final class ReviewRateView: BaseReviewView {
 		let label = UILabel()
 		label.text = R.string.localizable.reviewRateTitle()
 		label.numberOfLines = 0
-		label.font = UIFont.preferredFont(forTextStyle: .title2)
+		label.font = UIFont.systemFont(ofSize: 22, weight: .medium)
 		label.textColor = .black
 		return label
 	}()
@@ -59,7 +59,7 @@ final class ReviewRateView: BaseReviewView {
 	// MARK: - Lifecycle
 	
 	override init(
-		settings: BaseReviewView.ReviewSettings = .init(),
+		settings: BaseReviewView.ReviewSettings,
 		frame: CGRect = .zero
 	) {
 		super.init(settings: settings, frame: frame)
@@ -135,7 +135,7 @@ extension ReviewRateView: BaseView {
 			.sizeToFit(.width)
 		
 		overallRate.pin
-			.top(to: titleLabel.edge.bottom).marginTop(16)
+			.top(to: titleLabel.edge.bottom).marginTop(32)
 			.left(safeAreaInsets.left + 16)
 			.right(safeAreaInsets.right + 16)
 			.sizeToFit(.width)

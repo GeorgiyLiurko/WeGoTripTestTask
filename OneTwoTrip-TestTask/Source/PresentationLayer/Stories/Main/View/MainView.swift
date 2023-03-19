@@ -54,8 +54,8 @@ extension MainView: BaseView {
 		
 		reviewButton.pin
 			.vCenter()
-			.hCenter()
-			.width(40%)
-			.height(50)
+			.left(16)
+			.right(16)
+			.height(60)
 	}
 }
