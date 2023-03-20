@@ -23,6 +23,9 @@ class BaseReviewView: UIView {
 	
 	private let backgrounView: UIView = {
 		let view = UIView()
+		view.backgroundColor = UIColor.black.withAlphaComponent(
+			ReviewSettings.Constants.maxBackgroundAlpha
+		)
 		return view
 	}()
 	
@@ -60,7 +63,6 @@ class BaseReviewView: UIView {
 			self.backgrounView.backgroundColor = .black.withAlphaComponent(
 				self.settings.maxBackgroundAlpha
 			)
-			
 			self.setOpenedContainerViewLayout()
 		}
 	}

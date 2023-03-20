@@ -23,7 +23,7 @@ final class ReviewCommentView: BaseReviewView {
 		return scrollView
 	}()
 	
-	private let profileImageView: UIImageView = {
+	private(set) var profileImageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFill
 		return imageView
@@ -33,13 +33,13 @@ final class ReviewCommentView: BaseReviewView {
 		let label = UILabel()
 		label.numberOfLines = 0
 		label.text = R.string.localizable.likeInTourTitle()
-		label.font = .preferredFont(forTextStyle: .title2)
+		label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
 		return label
 	}()
 	
 	private let likeCommentTextView: PlaceholderTextView = {
 		let textView = PlaceholderTextView()
-		textView.textFont = .preferredFont(forTextStyle: .title2)
+		textView.textFont = UIFont.systemFont(ofSize: 17, weight: .medium)
 		textView.foregroundColor = .black
 		textView.isScrollEnabled = false
 		textView.placeholder = R.string.localizable.commentTourPlaceholder()
@@ -50,29 +50,26 @@ final class ReviewCommentView: BaseReviewView {
 		let label = UILabel()
 		label.numberOfLines = 0
 		label.text = R.string.localizable.improveTourTitle()
-		label.font = .preferredFont(forTextStyle: .title2)
+		label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
 		return label
 	}()
 	
 	private let improvementCommentTextView: PlaceholderTextView = {
 		let textView = PlaceholderTextView()
 		textView.placeholder = R.string.localizable.commentTourPlaceholder()
-		textView.textFont = .preferredFont(forTextStyle: .title2)
+		textView.textFont = UIFont.systemFont(ofSize: 17, weight: .medium)
 		textView.foregroundColor = .black
 		textView.isScrollEnabled = false
 		return textView
 	}()
 	
-	private let saveReviewButton: UIButton = {
-		let button = UIButton()
-		button.backgroundColor = .systemBlue
-		button.setTitleColor(.white, for: .normal)
-		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+	private(set) var saveReviewButton: BaseButton = {
+		let button = BaseButton()
 		button.setTitle(R.string.localizable.saveReview(), for: .normal)
 		return button
 	}()
 	
-	private(set) var skipButton: UIButton = {
+	fileprivate let skipButton: UIButton = {
 		let button = UIButton()
 		button.setTitle(R.string.localizable.skip(), for: .normal)
 		button.setTitleColor(.systemGray, for: .normal)
@@ -130,9 +127,7 @@ extension ReviewCommentView: BaseView {
 			.bottom(to: skipButton.edge.top).marginBottom(16)
 			.right(safeAreaInsets.right + 16)
 			.left(safeAreaInsets.left + 16)
-			.height(60)
-		
-		saveReviewButton.layer.cornerRadius = 12
+			.sizeToFit(.width)
 		
 		scrollView.pin
 			.top()
@@ -146,7 +141,7 @@ extension ReviewCommentView: BaseView {
 			.size(100)
 		
 		likeCommentTitleLabel.pin
-			.top(to: profileImageView.edge.bottom).marginTop(16)
+			.top(to: profileImageView.edge.bottom).marginTop(32)
 			.left(safeAreaInsets.left + 16)
 			.right(safeAreaInsets.right + 16)
 			.sizeToFit(.width)
@@ -171,7 +166,7 @@ extension ReviewCommentView: BaseView {
 		
 		scrollView.contentSize = CGSize(
 			width: frame.width,
-			height: improvementCommentTextView.frame.maxY
+			height: improvementCommentTextView.frame.maxY + 32
 		)
 	}
 }
@@ -195,5 +190,24 @@ private extension ReviewCommentView {
 			self?.setNeedsLayout()
 		})
 		.disposed(by: disposeBag)
+	}
+}
+
+
+extension Reactive where Base: ReviewCommentView {
+	var skip: ControlEvent<Void> {
+		return ControlEvent(
+			events: base.skipButton.rx.tap
+				.map({ _ in () })
+				.asObservable()
+		)
+	}
+	
+	var saveReview: ControlEvent<Void> {
+		return ControlEvent(
+			events: base.saveReviewButton.rx.tap
+				.map({ _ in () })
+				.asObservable()
+		)
 	}
 }

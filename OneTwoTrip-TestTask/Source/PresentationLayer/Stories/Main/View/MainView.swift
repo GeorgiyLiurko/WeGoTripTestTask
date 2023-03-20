@@ -12,14 +12,12 @@ final class MainView: UIView {
 	
 	// MARK: - Private Properties
 	
-	private(set) var reviewButton: UIButton = {
-		let button = UIButton()
+	private(set) var reviewButton: BaseButton = {
+		let button = BaseButton()
 		button.setTitle(
 			R.string.localizable.writeReview(),
 			for: .normal
 		)
-		button.setTitleColor(.white, for: .normal)
-		button.backgroundColor = .systemBlue
 		return button
 	}()
 	
@@ -50,12 +48,10 @@ extension MainView: BaseView {
 	}
 	
 	func configureLayout() {
-		reviewButton.layer.cornerRadius = 12
-		
 		reviewButton.pin
 			.vCenter()
 			.left(16)
 			.right(16)
-			.height(60)
+			.sizeToFit(.width)
 	}
 }

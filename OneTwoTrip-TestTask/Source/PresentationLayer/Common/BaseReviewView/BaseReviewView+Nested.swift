@@ -13,6 +13,10 @@ extension BaseReviewView {
 		
 		// MARK: - Nested
 		
+		enum Constants {
+			static let maxBackgroundAlpha: CGFloat = 0.8
+		}
+		
 		enum OpenState {
 			case opened
 			case closed
@@ -20,7 +24,7 @@ extension BaseReviewView {
 		
 		// MARK: - Properties
 		
-		var maxBackgroundAlpha: CGFloat = 0.8
+		var maxBackgroundAlpha: CGFloat = Constants.maxBackgroundAlpha
 		var minBackgroundAlpha: CGFloat = 0.2
 		var closeOffsetDevider: CGFloat =  1.5
 		var animationDuration: Double = 0.3

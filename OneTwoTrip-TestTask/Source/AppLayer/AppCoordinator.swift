@@ -28,10 +28,20 @@ final class AppCoordinator: ReactiveCoordinator<Void> {
 		let navigationController = UINavigationController()
 		window.rootViewController = navigationController
 		window.makeKeyAndVisible()
+		registerServices()
 		let mainCoordinator = MainCoordinator(
 			navigationController: navigationController,
 			assembler: assembler
 		)
 		return mainCoordinator.start()
+	}
+}
+
+// MARK: - Private Methods
+
+private extension AppCoordinator {
+	
+	func registerServices() {
+		self.assembler.apply(assembly: ServiceAssembly())
 	}
 }

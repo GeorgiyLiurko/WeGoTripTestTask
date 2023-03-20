@@ -17,6 +17,7 @@ final class ReviewCommentCoordinator: ReactiveCoordinator<Void> {
 	
 	private let navigationController: UINavigationController
 	private let assembler: Assembler
+	private let reviewDataSource: ReviewDataSource
 	
 	// MARK: - Properties
 	
@@ -26,9 +27,11 @@ final class ReviewCommentCoordinator: ReactiveCoordinator<Void> {
 	
 	init(
 		navigationController: UINavigationController,
-		assembler: Assembler
+		assembler: Assembler,
+		reviewDataSource: ReviewDataSource
 	) {
 		self.assembler = assembler
+		self.reviewDataSource = reviewDataSource
 		self.navigationController = navigationController
 	}
 	
@@ -52,7 +55,12 @@ final class ReviewCommentCoordinator: ReactiveCoordinator<Void> {
 	// MARK: - Private Methods
 	
 	private func getViewController() -> UIViewController? {
-		assembler.apply(assembly: ReviewCommentAssembly(coordinator: self))
+		assembler.apply(
+			assembly: ReviewCommentAssembly(
+				coordinator: self,
+				reviewDataSource: reviewDataSource
+			)
+		)
 		return assembler.resolver.resolve(ReviewCommentViewController.self)
 	}
 }

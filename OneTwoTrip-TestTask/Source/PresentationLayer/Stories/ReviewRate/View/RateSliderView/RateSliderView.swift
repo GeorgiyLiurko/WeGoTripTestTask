@@ -27,7 +27,7 @@ final class RateSliderView: UIView {
 	private let emojiLabel: UILabel = {
 		let label = UILabel()
 		label.textAlignment = .center
-		label.font = UIFont.preferredFont(forTextStyle: .body)
+		label.font = UIFont.systemFont(ofSize: 25, weight: .medium)
 		return label
 	}()
 	
@@ -103,7 +103,7 @@ extension RateSliderView: BaseView {
 		emojiLabel.pin
 			.right()
 			.top()
-			.sizeToFit(.content)
+			.sizeToFit()
 		
 		titleLabel.pin
 			.left(-8)
@@ -116,14 +116,14 @@ extension RateSliderView: BaseView {
 			.right()
 			.bottom()
 			.height(30)
-			.top(to: titleLabel.edge.bottom).marginTop(8)
+			.top(to: titleLabel.edge.bottom).marginTop(16)
 		
 		rateSlider.pin
 			.left()
 			.right()
 			.bottom()
 			.height(30)
-			.top(to: titleLabel.edge.bottom).marginTop(8)
+			.top(to: titleLabel.edge.bottom).marginTop(16)
 		
 		layoutCircles()
 	}
@@ -188,7 +188,11 @@ private extension RateSliderView {
 }
 
 extension Reactive where Base: RateSliderView {
-	var selectedValue: ControlEvent<Float> {
-		return ControlEvent(events: base.rateSlider.rx.value.asObservable())
+	var selectedValue: ControlEvent<Int> {
+		return ControlEvent(
+			events: base.rateSlider.rx.value
+				.map({ Int($0) })
+				.asObservable()
+		)
 	}
 }

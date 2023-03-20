@@ -10,4 +10,5 @@ target 'OneTwoTrip-TestTask' do
     pod 'ReactorKit'
     pod 'Swinject'
     pod 'ReactiveCoordinator'
+    pod 'Kingfisher'
 end

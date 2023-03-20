@@ -23,7 +23,7 @@ final class ReviewRateView: BaseReviewView {
 		return scrollView
 	}()
 	
-	private let profileImageView: UIImageView = {
+	private(set) var profileImageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFill
 		return imageView
@@ -33,21 +33,18 @@ final class ReviewRateView: BaseReviewView {
 		let label = UILabel()
 		label.text = R.string.localizable.reviewRateTitle()
 		label.numberOfLines = 0
-		label.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+		label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
 		label.textColor = .black
 		return label
 	}()
 	
-	private let overallRate: RateSliderView = RateSliderView()
-	private let guideRate: RateSliderView = RateSliderView()
-	private let informationRate: RateSliderView = RateSliderView()
-	private let navigationRate: RateSliderView = RateSliderView()
+	private(set) var overallRate: RateSliderView = RateSliderView()
+	private(set) var guideRate: RateSliderView = RateSliderView()
+	private(set) var informationRate: RateSliderView = RateSliderView()
+	private(set) var navigationRate: RateSliderView = RateSliderView()
 	
-	private(set) var nextButton: UIButton = {
-		let button = UIButton()
-		button.backgroundColor = .systemBlue
-		button.setTitleColor(.white, for: .normal)
-		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+	private(set) var nextButton: BaseButton = {
+		let button = BaseButton()
 		button.setTitle(R.string.localizable.next(), for: .normal)
 		return button
 	}()
@@ -117,10 +114,8 @@ extension ReviewRateView: BaseView {
 			.bottom(to: declineButton.edge.top).marginBottom(16)
 			.right(safeAreaInsets.right + 16)
 			.left(safeAreaInsets.left + 16)
-			.height(60)
-		
-		nextButton.layer.cornerRadius = 12
-		
+			.sizeToFit(.width)
+				
 		scrollView.pin
 			.top()
 			.right()

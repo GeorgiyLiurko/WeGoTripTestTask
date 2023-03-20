@@ -15,19 +15,22 @@ final class ReviewRateCoordinator: ReactiveCoordinator<Void> {
 	
 	private let navigationController: UINavigationController
 	private let assembler: Assembler
+	private let reviewDataSource: ReviewDataSource
 	
 	// MARK: - Properties
 	
 	var close = PublishSubject<Void>()
-	var openReviewComment = PublishSubject<Void>()
+	var openReviewComment = PublishSubject<ReviewDataSource>()
 	
 	// MARK: - Lifecycle
 	
 	init(
 		navigationController: UINavigationController,
-		assembler: Assembler
+		assembler: Assembler,
+		reviewDataSource: ReviewDataSource
 	) {
 		self.assembler = assembler
+		self.reviewDataSource = reviewDataSource
 		self.navigationController = navigationController
 	}
 	
@@ -48,25 +51,35 @@ final class ReviewRateCoordinator: ReactiveCoordinator<Void> {
 				controller.dismiss(animated: false)
 			}),
 			openReviewComment.asObservable()
-				.flatMap({ [weak self, controller] _ -> Observable<Void> in
+				.flatMap({ [weak self, controller] value -> Observable<Void> in
 					guard let self = self else { return .empty() }
 					controller.dismiss(animated: false)
-					return self.coordinate(to: self.getReviewCommentCoordinator())
+					return self.coordinate(
+						to: self.getReviewCommentCoordinator(reviewDataSource: value)
+					)
 				})
 		)
 	}
 	
 	// MARK: - Private Methods
 	
-	private func getReviewCommentCoordinator() -> ReviewCommentCoordinator {
+	private func getReviewCommentCoordinator(
+		reviewDataSource: ReviewDataSource
+	) -> ReviewCommentCoordinator {
 		return ReviewCommentCoordinator(
 			navigationController: self.navigationController,
-			assembler: self.assembler
+			assembler: self.assembler,
+			reviewDataSource: reviewDataSource
 		)
 	}
 	
 	private func getViewController() -> UIViewController? {
-		assembler.apply(assembly: ReviewRateAssembly(coordinator: self))
+		assembler.apply(
+			assembly: ReviewRateAssembly(
+				coordinator: self,
+				reviewDataSource: reviewDataSource
+			)
+		)
 		return assembler.resolver.resolve(ReviewRateViewController.self)
 	}
 }

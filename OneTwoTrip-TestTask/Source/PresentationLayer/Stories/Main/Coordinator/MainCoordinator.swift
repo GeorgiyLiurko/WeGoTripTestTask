@@ -10,6 +10,11 @@ import RxSwift
 import Swinject
 import RxCocoa
 
+struct ReviewDataSource {
+	var avatarUrl: URL?
+	var model: ReviewModel
+}
+
 final class MainCoordinator: ReactiveCoordinator<Void> {
 	
 	// MARK: - Private Properties
@@ -19,7 +24,7 @@ final class MainCoordinator: ReactiveCoordinator<Void> {
 	
 	// MARK: - Properties
 	
-	var showReview = PublishSubject<Void>()
+	var showReview = PublishSubject<ReviewDataSource>()
 	
 	// MARK: - Lifecycle
 	
@@ -42,11 +47,12 @@ final class MainCoordinator: ReactiveCoordinator<Void> {
 			controller,
 			animated: false
 		)
-		return showReview.flatMap { [weak self] _ -> Observable<Void> in
+		return showReview.flatMap { [weak self] reviewDataSource -> Observable<Void> in
 			guard let self = self else { return .empty() }
 			let reviewCoordinator = ReviewRateCoordinator(
 				navigationController: self.navigationController,
-				assembler: self.assembler
+				assembler: self.assembler,
+				reviewDataSource: reviewDataSource
 			)
 			return self.coordinate(to: reviewCoordinator)
 		}

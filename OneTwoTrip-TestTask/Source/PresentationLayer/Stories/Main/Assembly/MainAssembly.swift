@@ -23,8 +23,11 @@ struct MainAssembly: Assembly {
 	// MARK: - Public Methods
 	
 	func assemble(container: Container) {
-		container.register(MainViewModel.self) { _ in
-			return MainViewModel(coordinator: self.coordinator)
+		container.register(MainViewModel.self) { resolver in
+			return MainViewModel(
+				coordinator: self.coordinator,
+				profileImageService: resolver.forceResolve(IProfileImageService.self)
+			)
 		}
 		container.register(MainViewController.self) { resolver in
 			let controller = MainViewController()
