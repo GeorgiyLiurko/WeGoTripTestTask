@@ -23,13 +23,14 @@ struct ReviewRateAssembly: Assembly {
 	// MARK: - Public Methods
 	
 	func assemble(container: Container) {
-		container.register(ReviewRateViewController.self) { _ in
-			return ReviewRateViewController()
-		}
-		
 		container.register(ReviewRateViewModel.self) { _ in
 			return ReviewRateViewModel(coordinator: self.coordinator)
 		}
+		
+		container.register(ReviewRateViewController.self) { resolver in
+			let controller = ReviewRateViewController()
+			controller.reactor = resolver.resolve(ReviewRateViewModel.self)
+			return controller
+		}
 	}
 }
-

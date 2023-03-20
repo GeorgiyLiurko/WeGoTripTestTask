@@ -12,10 +12,6 @@ import RxCocoa
 
 class BaseReviewView: UIView {
 	
-	// MARK: - Public Properties
-	
-	let didClose = PublishSubject<Void>()
-	
 	// MARK: - Private Properties
 	
 	private let containerView: UIView = {
@@ -31,6 +27,8 @@ class BaseReviewView: UIView {
 	}()
 	
 	private let settings: ReviewSettings
+	fileprivate let didClose = PublishSubject<Void>()
+	fileprivate let containerTapGesture = UITapGestureRecognizer()
 	
 	// MARK: - Lifecycle
 	
@@ -67,6 +65,17 @@ class BaseReviewView: UIView {
 		}
 	}
 	
+	func animateClosing() {
+		UIView.animate(withDuration: settings.animationDuration, animations: {
+			self.backgrounView.backgroundColor = .black.withAlphaComponent(
+				self.settings.minBackgroundAlpha
+			)
+			self.setClosedContainerViewLayout()
+		}) { _ in
+			self.didClose.onNext(())
+		}
+	}
+	
 	func addSubviewToContainer(_ view: UIView) {
 		self.containerView.addSubview(view)
 	}
@@ -79,6 +88,14 @@ private extension BaseReviewView {
 	func configureUI() {
 		addSubview(backgrounView)
 		backgrounView.addSubview(containerView)
+		
+		containerView.addGestureRecognizer(self.containerTapGesture)
+		
+		if settings.openState == .opened {
+			self.backgrounView.backgroundColor = .black.withAlphaComponent(
+				self.settings.maxBackgroundAlpha
+			)
+		}
 	}
 	
 	func configureLayout() {
@@ -151,15 +168,18 @@ private extension BaseReviewView {
 		let maxOffset = containerView.frame.height
 		let closePoint = maxOffset / settings.closeOffsetDevider
 		
-		UIView.animate(withDuration: settings.animationDuration) {
+		UIView.animate(withDuration: settings.animationDuration, animations:  {
 			if offset > closePoint {
 				self.setClosedContainerViewLayout()
 			} else {
 				self.setOpenedContainerViewLayout()
-				self.didClose.onNext(())
 			}
 			self.updateBackgroundAlpha(with: offset)
-		}
+		}, completion: { _ in
+			if offset > closePoint {
+				self.didClose.onNext(())
+			}
+		})
 	}
 	
 	func configureContainerGesture() {
@@ -168,5 +188,22 @@ private extension BaseReviewView {
 			 action: #selector(handleCardSwipe)
 		 )
 		containerView.addGestureRecognizer(panGestureRecognizer)
+	}
+}
+
+// MARK: - Reactive
+
+extension Reactive where Base: BaseReviewView {
+	
+	var didClose: ControlEvent<Void> {
+		return ControlEvent(
+			events: base.didClose.asObservable()
+		)
+	}
+	
+	var containerViewTapped: ControlEvent<Void> {
+		return ControlEvent(
+			events: base.containerTapGesture.rx.event.map({ _ in () }).asObservable()
+		)
 	}
 }

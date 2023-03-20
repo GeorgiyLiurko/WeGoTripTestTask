@@ -16,6 +16,11 @@ final class ReviewRateCoordinator: ReactiveCoordinator<Void> {
 	private let navigationController: UINavigationController
 	private let assembler: Assembler
 	
+	// MARK: - Properties
+	
+	var close = PublishSubject<Void>()
+	var openReviewComment = PublishSubject<Void>()
+	
 	// MARK: - Lifecycle
 	
 	init(
@@ -37,10 +42,28 @@ final class ReviewRateCoordinator: ReactiveCoordinator<Void> {
 			controller,
 			animated: false
 		)
-		return .just(())
+	
+		return Observable.merge(
+			close.do(onNext: { [controller] in
+				controller.dismiss(animated: false)
+			}),
+			openReviewComment.asObservable()
+				.flatMap({ [weak self, controller] _ -> Observable<Void> in
+					guard let self = self else { return .empty() }
+					controller.dismiss(animated: false)
+					return self.coordinate(to: self.getReviewCommentCoordinator())
+				})
+		)
 	}
 	
 	// MARK: - Private Methods
+	
+	private func getReviewCommentCoordinator() -> ReviewCommentCoordinator {
+		return ReviewCommentCoordinator(
+			navigationController: self.navigationController,
+			assembler: self.assembler
+		)
+	}
 	
 	private func getViewController() -> UIViewController? {
 		assembler.apply(assembly: ReviewRateAssembly(coordinator: self))

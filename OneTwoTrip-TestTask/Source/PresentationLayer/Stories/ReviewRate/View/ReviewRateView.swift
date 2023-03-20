@@ -7,10 +7,14 @@
 
 import UIKit
 import PinLayout
+import RxSwift
+import RxCocoa
 
 final class ReviewRateView: BaseReviewView {
 	
-	// MARK: - Properties
+	// MARK: - Properties Properties
+	
+	private let disposeBag = DisposeBag()
 	
 	private let scrollView: UIScrollView = {
 		let scrollView = UIScrollView()
@@ -39,7 +43,7 @@ final class ReviewRateView: BaseReviewView {
 	private let informationRate: RateSliderView = RateSliderView()
 	private let navigationRate: RateSliderView = RateSliderView()
 	
-	private let nextButton: UIButton = {
+	private(set) var nextButton: UIButton = {
 		let button = UIButton()
 		button.backgroundColor = .systemBlue
 		button.setTitleColor(.white, for: .normal)
@@ -48,7 +52,7 @@ final class ReviewRateView: BaseReviewView {
 		return button
 	}()
 	
-	private let declineButton: UIButton = {
+	private(set) var declineButton: UIButton = {
 		let button = UIButton()
 		button.setTitle(R.string.localizable.declineAnswer(), for: .normal)
 		button.setTitleColor(.systemGray, for: .normal)

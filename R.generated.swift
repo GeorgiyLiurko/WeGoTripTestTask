@@ -64,9 +64,16 @@ struct _R {
       let source: RswiftResources.StringResource.Source
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 8 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 13 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
+
+      /// ru translation: Напишите здесь, чем вам запомнился тур, посоветуете ли его друзьям и как удалось ли повеселиться
+      ///
+      /// Key: commentTourPlaceholder
+      ///
+      /// Locales: ru
+      var commentTourPlaceholder: RswiftResources.StringResource { .init(key: "commentTourPlaceholder", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// ru translation: Не хочу отвечать
       ///
@@ -82,12 +89,26 @@ struct _R {
       /// Locales: ru
       var guideRateTitle: RswiftResources.StringResource { .init(key: "guideRateTitle", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// ru translation: Как мы могли бы улучшить подачу информации?
+      ///
+      /// Key: improveTourTitle
+      ///
+      /// Locales: ru
+      var improveTourTitle: RswiftResources.StringResource { .init(key: "improveTourTitle", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// ru translation: Как вам подача информации?
       ///
       /// Key: informationRateTitle
       ///
       /// Locales: ru
       var informationRateTitle: RswiftResources.StringResource { .init(key: "informationRateTitle", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// ru translation: Что вам особенно понравилось в туре?
+      ///
+      /// Key: likeInTourTitle
+      ///
+      /// Locales: ru
+      var likeInTourTitle: RswiftResources.StringResource { .init(key: "likeInTourTitle", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// ru translation: Удобная навигации между шагами?
       ///
@@ -116,6 +137,20 @@ struct _R {
       ///
       /// Locales: ru
       var reviewRateTitle: RswiftResources.StringResource { .init(key: "reviewRateTitle", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// ru translation: Сохранить отзыв
+      ///
+      /// Key: saveReview
+      ///
+      /// Locales: ru
+      var saveReview: RswiftResources.StringResource { .init(key: "saveReview", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// ru translation: Пропустить
+      ///
+      /// Key: skip
+      ///
+      /// Locales: ru
+      var skip: RswiftResources.StringResource { .init(key: "skip", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// ru translation: Написать отзыв
       ///
