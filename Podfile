@@ -1,6 +1,6 @@
 platform :ios, '11.0'
 
-target 'OneTwoTrip-TestTask' do
+target 'WeGoTripTestTask' do
   use_frameworks!
     pod 'PinLayout'
     pod 'RxSwift'
